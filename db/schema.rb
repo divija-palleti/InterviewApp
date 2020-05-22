@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_121409) do
+ActiveRecord::Schema.define(version: 2020_05_22_180037) do
+
+  create_table "interviewees", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "resume_file_name"
+    t.string "resume_content_type"
+    t.bigint "resume_file_size"
+    t.datetime "resume_updated_at"
+  end
 
   create_table "interviewers", force: :cascade do |t|
     t.string "name"

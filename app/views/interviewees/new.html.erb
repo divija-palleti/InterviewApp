@@ -1,15 +1,15 @@
 <div class="container">
-<%= simple_form_for @interviewer, html: {  multipart: true } do |f| %>
-    <% if @interviewer.errors.any? %>
+<%= simple_form_for @interviewee, html: {  multipart: true } do |f| %>
+    <% if @interviewee.errors.any? %>
     
       <div id="errors" class="text-danger">
         <h3>
-        <%= pluralize(@interviewer.errors.count, "error") %>
+        <%= pluralize(@interviewee.errors.count, "error") %>
         prevented this post from being saved
         </h3>
-        <% @interviewer.errors.each do |attr, msg| %>
+        <% @interviewee.errors.each do |attr, msg| %>
           <li>
-          <%= @interview.errors.full_messages_for(attr).first if @interview.errors[attr].first == msg %>
+            <%= msg %>
           </li>
         <% end %>
       </div>
@@ -19,10 +19,10 @@
       <%= f.input :name  %>
     </div>
     <div class="form-group text-center">
-      <%= f.input :desc %>
-    </div>
-    <div class="form-group text-center">
       <%= f.input :email, placeholder: "enter the email ID"  %>
+    </div>
+    <div class="form-group ">
+      <%= f.input :resume, label: 'Resume(pdf only)'  %>
     </div>
     
     <div class="form-group text-center">

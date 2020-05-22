@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container mt-5">
+  <div class="page-header">
+    <h1>Interviewers</h1>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+       
+        <th>Name</th>
+        <th>Desc</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @interviewers.each do |i| %>
+        <tr>
+          
+          <td><%= i.name %></td>
+          <td><%= i.desc %></td>
+          <td><%=  i.email %></td>
+          <td><%= link_to 'Delete', i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= link_to 'New Interviewer', new_interviewer_path %></td>
+  <%= link_to 'Back', root_path %></td>          
+</div>

@@ -1,0 +1,37 @@
+<div class="container">
+<%= simple_form_for @interviewee, html: {  multipart: true } do |f| %>
+    <% if @interviewee.errors.any? %>
+    
+      <div id="errors" class="text-danger">
+        <h3>
+        <%= pluralize(@interviewee.errors.count, "error") %>
+        prevented this post from being saved
+        </h3>
+        <% @interviewee.errors.each do |attr, msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="form-wrapper">
+    <div class="form-group text-center ">
+      <%= f.input :name  %>
+    </div>
+    <div class="form-group text-center">
+      <%= f.input :email, placeholder: "enter the email ID"  %>
+    </div>
+    <div class="form-group ">
+      <%= f.input :resume, label: 'Resume(pdf only)'  %>
+    </div>
+    
+    <div class="form-group text-center">
+      <%= f.button :submit, class: 'btn-success' %>
+    </div>
+    <div class="text-center">
+      <%= link_to 'Cancel', root_path %>
+    </div>
+ 
+<% end %>
+</div>  
+</div>

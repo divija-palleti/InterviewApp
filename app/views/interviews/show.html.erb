@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+
+    <table class="table table-striped">
+    <tbody>
+    <tr>
+        <td><b>Title</b></td>
+        <td><%= @interview.title %></td>
+    </tr>
+    <tr>
+        <td><b>Desc</b></td>
+        <td><%= @interview.desc %></td>
+    </tr>
+    <tr>
+        <td><b>Start Time</b></td>
+        <td><%= @interview.starttime %></td>
+    </tr>
+    <tr>
+        <td><b>End Time</b></td>
+        <td><%= @interview.endtime %></td>
+    </tr>
+    <tr>
+        <td><b>Interviewer</b></td>
+        <td><%= @interview.interviewer_id %></td>
+    </tr>
+    <tr>
+        <td><b>Participant</b></td>
+        <td><%- @interview.interviewees.each do |p| -%>
+            <%= p.email %> <br>
+        <%- end -%></td>
+        
+    </tr>
+    </tbody>
+    </table>
+    <%= link_to 'Edit', edit_interview_path(@interview) %>
+    <%= link_to 'Back', root_path %>
+</div>

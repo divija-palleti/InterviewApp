@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <div class="container">
 <%= simple_form_for @interview, html: {  multipart: true } do |f| %>
     <% if @interview.errors.any? %>
@@ -30,13 +31,20 @@
     </div>
     <div class="form-group text-center">
       <%= f.label :Interviewer %> 
-      <%= f.collection_select :interviewer, @interviewers.all, :email, :email %>    
-     
+      <%= f.collection_select :interviewer_id, @interviewers.all, :id, :email %>    
     </div>
+
     <div class="form-group text-center">
-      <%= f.input :participant, placeholder: "enter the email ID"%>
+      <%= f.label "Interviewee" %><br />
+      <%= f.collection_check_boxes :interviewee_ids, Interviewee.all, :id, :email do |b| %>
+        <div class="collection-check-box">
+          <%= b.check_box %>
+          <%= b.label %>
+        </div>
+      <% end %>
     </div>
     
+   
     <div class="form-group text-center">
       <%= f.button :submit, class: 'btn-success' %>
     </div>

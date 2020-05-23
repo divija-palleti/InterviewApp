@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_180037) do
+ActiveRecord::Schema.define(version: 2020_05_23_100500) do
 
   create_table "interviewees", force: :cascade do |t|
     t.string "name"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(version: 2020_05_22_180037) do
     t.string "resume_content_type"
     t.bigint "resume_file_size"
     t.datetime "resume_updated_at"
+  end
+
+  create_table "interviewees_interviews", id: false, force: :cascade do |t|
+    t.integer "interviewee_id", null: false
+    t.integer "interview_id", null: false
   end
 
   create_table "interviewers", force: :cascade do |t|
@@ -36,10 +41,12 @@ ActiveRecord::Schema.define(version: 2020_05_22_180037) do
     t.string "desc"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "interviewer"
     t.string "participant"
     t.datetime "endtime"
     t.datetime "starttime"
+    t.integer "interviewer_id", null: false
+    t.index ["interviewer_id"], name: "index_interviews_on_interviewer_id"
   end
 
+  add_foreign_key "interviews", "interviewers"
 end

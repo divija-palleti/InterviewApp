@@ -5,14 +5,13 @@ class IntervieweesController < ApplicationController
     end
 
     def index
-        @interviewees = Interviewee.all
-        
+        @interviewees = Interviewee.all 
     end
   
 
     def create
         @interviewee = Interviewee.new(interviewer_params)
-        
+
         respond_to do |format|
           if @interviewee.save()
             format.html { redirect_to interviewees_path, notice: 'Created ' }

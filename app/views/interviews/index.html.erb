@@ -15,7 +15,7 @@
         <th>Start Time</th>
         <th>End Time</th>
         <th>Interviewer</th>
-        <th>Participant</th>
+        <th>Interviewees</th>
         <th ></th>
       </tr>
     </thead>
@@ -26,8 +26,10 @@
           <td><%= i.title %></td>
           <td><%= i.starttime%></td>
           <td><%= i.endtime%></td>
-          <td><%=  i.interviewer %></td>
-          <td><%=  i.participant %></td>
+          <td><%=  i.interviewer_email %></td>
+          <td> <% i.interviewees.each do |p| %>
+            <%= p.email %><br>
+          <% end %></td>
           <td><%= link_to 'Delete', i, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
       <% end %>

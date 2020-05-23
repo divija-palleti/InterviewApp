@@ -22,11 +22,14 @@
     </tr>
     <tr>
         <td><b>Interviewer</b></td>
-        <td><%= @interview.interviewer %></td>
+        <td><%= @interview.interviewer_id %></td>
     </tr>
     <tr>
         <td><b>Participant</b></td>
-        <td><%= @interview.participant %></td>
+        <td><%- @interview.interviewees.each do |p| -%>
+            <%= p.email %> <br>
+        <%- end -%></td>
+        
     </tr>
     </tbody>
     </table>

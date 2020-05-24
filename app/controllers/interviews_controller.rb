@@ -16,6 +16,7 @@ class InterviewsController < ApplicationController
 
       respond_to do |format|
         if @interview.save()
+          
           format.html { redirect_to @interview, notice: 'Created ' }
           format.json { render @interviews }    
         else

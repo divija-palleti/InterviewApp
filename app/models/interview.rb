@@ -1,4 +1,5 @@
 class Interview < ApplicationRecord
+    
     belongs_to :interviewer
     has_and_belongs_to_many :interviewees
     delegate :name, :email, to: :interviewer, prefix: true
@@ -8,12 +9,20 @@ class Interview < ApplicationRecord
     validate :is_busy
     after_create :reminder_mail 
     after_update :reminder_mail 
+    after_update :update_mail
+
+    # puts starttime_changed?
+    # puts "start time changed"
 
     def reminder_mail
-        PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id)
-        # PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc)
+        # PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id, Time.now.utc)
+        PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc)
         # IntervieweeMailer.send_reminder(self).deliver_later.(wait_until: 10.seconds.from_now)
        
+    end
+
+    def update_mail
+                UpdatemailWorker.perform_async( id, Time.now.utc) 
     end
    
 

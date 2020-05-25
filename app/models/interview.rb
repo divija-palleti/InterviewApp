@@ -15,8 +15,8 @@ class Interview < ApplicationRecord
     # puts "start time changed"
 
     def reminder_mail
-        # PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id, Time.now.utc)
-        PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc)
+        PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id, Time.now.utc)
+        # PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc)
         # IntervieweeMailer.send_reminder(self).deliver_later.(wait_until: 10.seconds.from_now)
        
     end

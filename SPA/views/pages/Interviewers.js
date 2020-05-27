@@ -1,4 +1,5 @@
-let getInterviewers = async () => {
+import Redirect        from '../../services/Redirect.js'
+let getInterviewersList = async () => {
     const options = {
        method: 'GET',
        headers: {
@@ -6,21 +7,62 @@ let getInterviewers = async () => {
        }
    };
    try {
-       const response = await fetch(`https://5bb634f6695f8d001496c082.mockapi.io/api/posts/` + id, options)
+       const response = await fetch(`http://localhost:3000/interviewers/`, options)
        const json = await response.json();
-       // console.log(json)
+       console.log("p")
+       console.log(json)
        return json
    } catch (err) {
+    console.log("p")
        console.log('Error getting documents', err)
    }
+  }
+
+
+
+  window.deleteInterviewer = async (id) => {
+  
+    const confirm = window.confirm("Are you sure? ");
+    if(confirm)
+    {
+         const options = {
+             method: 'DELETE',
+             headers: {
+              'Content-Type': 'application/json',
+              
+             }
+         };
+         try {
+          
+             const response = await fetch(`http://localhost:3000/interviewers/${id}`, options)
+             const json = await response.json();
+             console.log(json)
+             if(json.success)
+             {
+              alert('DELETED');
+              location.reload();
+             
+             }
+             else{
+              alert('not DELETED')
+             
+             }
+             return json
+         } catch (err) {
+             console.log('Error getting documents', err)
+         }
+    }
+    
   }
   
   
   
   
   let Interviewers = {
+
       render : async () => {
-          // let interviewers = await getPostsList()
+        console.log("p")
+          let interviewers = await getInterviewersList()
           let view =  /*html*/`
              
             <div class="container mt-5">
@@ -40,16 +82,25 @@ let getInterviewers = async () => {
                 </tr>
               </thead>
               <tbody>
+                      ${ interviewers.map(interviewer => 
+                        /*html*/`
+                        
+                      <tr>
+                       
+                        <td>${interviewer.name}</td>
+                        <td>${interviewer.desc}</td>
+                        <td>${interviewer.email}</td>
+                       
+                        
+                      
+                        <td>  <td> <a class="navbar-item" onclick="deleteInterviewer(${interviewer.id})">  Delete </a></td></td>
+                      </tr>
+                        
+                        `
+                        )
+                    }
               
-                  <tr>
-                    
-                    <td>name1</td>
-                    <td>desc1</td>
-                    
-                    <td>email1</td>
-                    
-                    <td>  <td> <a class="navbar-item" href="/#/interviewers">  Delete </a></td></td>
-                  </tr>
+                
               
               </tbody>
             </table>

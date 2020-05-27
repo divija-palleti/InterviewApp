@@ -1,4 +1,4 @@
-let getInterviewees = async () => {
+let getIntervieweesList = async () => {
     const options = {
        method: 'GET',
        headers: {
@@ -6,21 +6,59 @@ let getInterviewees = async () => {
        }
    };
    try {
-       const response = await fetch(`https://5bb634f6695f8d001496c082.mockapi.io/api/posts/` + id, options)
-       const json = await response.json();
-       // console.log(json)
-       return json
-   } catch (err) {
-       console.log('Error getting documents', err)
-   }
+    const response = await fetch(`http://localhost:3000/interviewees/`, options)
+    const json = await response.json();
+    console.log("p")
+    console.log(json)
+    return json
+} catch (err) {
+ console.log("p")
+    console.log('Error getting documents', err)
+}
+}
+
+
+
+window.deleteInterviewee = async (id) => {
+  
+  const confirm = window.confirm("Are you sure? ");
+  if(confirm)
+  {
+       const options = {
+           method: 'DELETE',
+           headers: {
+            'Content-Type': 'application/json',
+            
+           }
+       };
+       try {
+        
+           const response = await fetch(`http://localhost:3000/interviewees/${id}`, options)
+           const json = await response.json();
+           console.log(json)
+           if(json.success)
+           {
+            alert('DELETED');
+            location.reload();
+           
+           }
+           else{
+            alert('not DELETED')
+           
+           }
+           return json
+       } catch (err) {
+           console.log('Error getting documents', err)
+       }
   }
   
+}
   
   
   
   let Interviewees = {
       render : async () => {
-          // let interviewees = await getPostsList()
+          let i = await getIntervieweesList()
           let view =  /*html*/`
              
             <div class="container mt-5">
@@ -39,15 +77,21 @@ let getInterviewees = async () => {
                 </tr>
               </thead>
               <tbody>
+                        ${ i.interviewees.map(interviewee => 
+                          /*html*/`
+                          <tr>
+                        <td>${interviewee.name}</td>
+                        <td>${interviewee.email}</td>
+                        
+                        <td><a href=${interviewee.r_link}>Resume</a></td>
+                        
+                        <td>  <td> <a class="navbar-item" onclick="deleteInterviewee(${interviewee.id})">  Delete </a></td></td>
+                        </tr>
+                          `
+                          
+                        )}
               
-                  <tr>
-                  <td>name1</td>
-                  <td>email1</td>
-                  
-                  <td><a href="/#/interviewees">Resume</a></td>
-                  
-                  <td>  <td> <a class="navbar-item" href="/#/interviewees">  Delete </a></td></td>
-                  </tr>
+                 
               
               </tbody>
             </table>
@@ -73,5 +117,6 @@ let getInterviewees = async () => {
   }
   
   export default Interviewees;
+
   
   

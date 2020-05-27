@@ -1,5 +1,6 @@
 import Redirect        from '../../services/Redirect.js'
-
+import getInterviewersList        from '../../services/getInterviewersList.js'
+import getIntervieweesList        from '../../services/getIntervieweesList.js'
 
 let postInterview = async (interview) => {
     console.log(JSON.stringify(interview))
@@ -38,58 +39,6 @@ let postInterview = async (interview) => {
       }
 
 }
-
-
-let getInterviewersList = async () => {
-    console.log("enter")
-  
-    const options = {
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/json',
-        
-        }
-    };
-    try {
-        console.log("enter1")
-    
-        const response = await fetch(`http://localhost:3000/interviewers/`, options)
-        console.log("enter2")
-        const json = await response.json();
-        
-        console.log(json)
-        return json
-    } catch (err) {
-        console.log('Error getting documents', err)
-    }
-}
-
-
-let getIntervieweesList = async () => {
-    console.log("enter")
-  
-    const options = {
-        method: 'GET',
-        headers: {
-        'Content-Type': 'application/json',
-        
-        }
-    };
-    try {
-        console.log("enter1")
-    
-        const response = await fetch(`http://localhost:3000/interviewees/`, options)
-        console.log("enter2")
-        const json = await response.json();
-        
-        console.log(json)
-        return json
-    } catch (err) {
-        console.log('Error getting documents', err)
-    }
-}
-
-
 
 
 

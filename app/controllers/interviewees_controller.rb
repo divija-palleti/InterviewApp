@@ -7,22 +7,22 @@ class IntervieweesController < ApplicationController
 
     def index
         @interviewees = Interviewee.all 
-        # interviewees = []
-        # @interviewees.each do |i|
-        #   interviewees.append({
-        #   :id => i.id,
-        #   :name => i.name,
+        interviewees = []
+        @interviewees.each do |i|
+          interviewees.append({
+          :id => i.id,
+          :name => i.name,
          
-        #   :email => i.email,
-        #   :r_link => i.resume.url,
+          :email => i.email,
+          :r_link => i.resume.url,
 
-        # })
-        # end
+        })
+        end
         
         
-        # render json: {
-        #   :interviewees => interviewees,
-        # }
+        render json: {
+          :interviewees => interviewees,
+        }
     end
 
   
@@ -51,10 +51,10 @@ class IntervieweesController < ApplicationController
 
     def destroy
         Interviewee.find(params[:id]).destroy
-        # render json: {
-        #   :success => true,
-        # }
-        redirect_to interviewees_path, notice: 'Deleted '
+        render json: {
+          :success => true,
+        }
+        # redirect_to interviewees_path, notice: 'Deleted '
       end
 
     private

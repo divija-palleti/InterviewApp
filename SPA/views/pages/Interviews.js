@@ -1,29 +1,6 @@
 import Redirect        from '../../services/Redirect.js'
+import getInterviewsList        from '../../services/getInterviewsList.js'
 
-
-let getInterviewList = async () => {
-  console.log("fails2")
-  const options = {
-     method: 'GET',
-     headers: {
-      'Content-Type': 'application/json',
-      // 'X-CSRF-Token': Rails.csrfToken()
-     }
- };
- try {
-  
-     const response = await fetch(`http://localhost:3000/interviews/`, options)
-    
-     const json = await response.json();
-     
-     console.log(json)
-     
-     return json
- } catch (err) {
-     console.log('Error getting documents', err)
- }
-
-}
 
 
 window.deleteInterview = async (id) => {
@@ -74,7 +51,7 @@ let getParticipantList = (participants)=>{
 let Interviews = {
     render : async () => {
        
-        let interviews = await getInterviewList()
+        let interviews = await getInterviewsList()
         let view =  /*html*/`
            
           <div class="container mt-5">

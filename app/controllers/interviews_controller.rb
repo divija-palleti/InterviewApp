@@ -117,8 +117,6 @@ class InterviewsController < ApplicationController
     private
 
     def interview_params
-      puts "k"
-      puts params
       params.require(:interview).permit( :title, :desc, :starttime, :endtime, :interviewer_id, interviewee_ids: [])
     end
 end

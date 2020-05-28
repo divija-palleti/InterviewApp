@@ -51,7 +51,7 @@ let NewInterviewee = {
        
         let view =  /*html*/`
         
-        <h1> New Interviewer</h1>
+        <h1> New Interviewee</h1>
         <div class="container">
             <form id="new_interviewee" enctype=”multipart/form-data” >
                 <div class="form-group">

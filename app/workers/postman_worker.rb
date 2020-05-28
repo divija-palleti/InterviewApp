@@ -6,7 +6,7 @@ class PostmanWorker
         puts time
         puts "time from postmman"
         
-        ParticipantMailer.send_reminder(interview_id,time).deliver_now
+        ParticipantMailer.send_reminder(interview_id,time).deliver_later
         
     end
 end

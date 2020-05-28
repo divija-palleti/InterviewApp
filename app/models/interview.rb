@@ -15,14 +15,14 @@ class Interview < ApplicationRecord
     # puts "start time changed"
 
     def reminder_mail
-        PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id, Time.now.utc)
-        # PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc)
-        # IntervieweeMailer.send_reminder(self).deliver_later.(wait_until: 10.seconds.from_now)
+        PostmanWorker.perform_at((starttime - Time.now.utc - 30.minutes).seconds.from_now, id, Time.now.utc+1.second)
+        # PostmanWorker.perform_at(10.seconds.from_now, id, Time.now.utc+1.second)
+        # ParticipantMailer.send_reminder(id, Time.now.utc).deliver_later
        
     end
 
     def update_mail
-                UpdatemailWorker.perform_async( id, Time.now.utc) 
+                UpdatemailWorker.perform_async( id, Time.now.utc+1.second )
     end
    
 
@@ -31,6 +31,16 @@ class Interview < ApplicationRecord
     def is_busy
 
         if(id)
+            # Interview.where(id: id).each do |w|
+            #     # do stuff
+            #     puts w
+            #     puts "id"
+            #   end
+            # # check_id = Interview.where(id: id)
+            # # puts check_id
+            # # puts "id"
+            # # check_i_id = Interview.where(interviewer_id: interviewer_id) 
+            # # check_time =
             
             i_busy = Interview.where("((id != ?) AND (interviewer_id = ?) AND ((starttime BETWEEN ? AND ? ) OR (starttime < ? AND endtime > ? ) OR (endtime BETWEEN ? AND ?)) )",id,interviewer_id,starttime,endtime,starttime,endtime,starttime,endtime)
         else

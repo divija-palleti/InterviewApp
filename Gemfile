@@ -27,6 +27,10 @@ gem 'simple_form'
 gem 'devise'
 gem "paperclip"
 gem 'rack-cors'
+gem 'sidekiq'
+gem 'mailcatcher'
+gem 'sinatra'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

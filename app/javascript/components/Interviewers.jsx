@@ -20,6 +20,35 @@ function Interviewers() {
       })
   },[])
 
+  const handleDelete = (id,e) => {
+     
+    const confirmation = confirm("Are you sure?");
+    if (confirmation) {
+      console.log(id)
+      console.log("p")
+      let path = `http://localhost:3000/interviewers/${id}`
+      console.log(path)
+      axios
+        .delete(path)
+        .then(response => {
+          
+          if(response.data.success)
+           {
+            alert('DELETED');
+            location.reload();
+           
+           }
+           else{
+            alert('not DELETED')
+           
+           }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    }
+
     return (
         <div>
         <div className="container mt-5">
@@ -41,11 +70,11 @@ function Interviewers() {
               <tbody>
                 {
                   interviewers.map(interviewer=>(
-                    <tr>
+                    <tr key={interviewer.id}>
                     <td>{interviewer.name}</td>
                     <td>{interviewer.desc}</td>
                     <td>{interviewer.email}</td>
-                    <td>  Delete </td>
+                    <td > <button onClick={(e) => handleDelete(interviewer.id, e)}>Delete</button>   </td>
                     </tr>
 
                   ))

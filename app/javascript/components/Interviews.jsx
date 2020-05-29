@@ -31,6 +31,35 @@ function Interviews() {
       return p
     }
 
+    const handleDelete = (id,e) => {
+     
+    const confirmation = confirm("Are you sure?");
+    if (confirmation) {
+      console.log(id)
+      console.log("p")
+      let path = `http://localhost:3000/interviews/${id}`
+      console.log(path)
+      axios
+        .delete(path)
+        .then(response => {
+          
+          if(response.data.success)
+           {
+            alert('DELETED');
+            location.reload();
+           
+           }
+           else{
+            alert('not DELETED')
+           
+           }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    }
+
     return (
         <div>
                 
@@ -65,7 +94,7 @@ function Interviews() {
                       <td>{interview.interviewer_email}</td>
 
                       <td>{getParticipantList(interview.participants)}</td>
-                      <td>  Delete </td>
+                      <td > <button onClick={(e) => handleDelete(interview.id, e)}>Delete</button>   </td>
                     </tr>
 
                   ) )}

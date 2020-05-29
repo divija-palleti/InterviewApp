@@ -1,6 +1,23 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
+import {useState, useEffect} from 'react'
+import axios from 'axios'
+import {NavLink, Link} from 'react-router-dom'
 function Interviewees() {
+
+  const[interviewees, setInterviewees] = useState([])
+
+  useEffect(()=>{
+
+    axios
+      .get('http://localhost:3000/interviewees')
+      .then((res)=>{
+        setInterviewees(res.data.interviewees)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },[])
+
     return (
         <div>
         <div className="container mt-5">
@@ -19,13 +36,17 @@ function Interviewees() {
                 </tr>
               </thead>
               <tbody>
-              <tr>
-                    <td>Name1</td>
-                    <td>Email</td>
-                    <td>Resume</td>
-                </tr>
-                     
-             
+                {
+                  interviewees.map(interviewee=>(
+                    <tr key={interviewee.id}>
+                    <td>{interviewee.name}</td>
+                    <td>{interviewee.email}</td>
+                    <td><a href={`${interviewee.r_link}`}>Resume</a></td>
+                    <td>  Delete </td>
+                    </tr>
+                  ))
+                }
+              
               </tbody>
             </table>
             <div className="text-center">

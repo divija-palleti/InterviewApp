@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 
 
-function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit}) {
+function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
     
     
     const[interviewers, setInterviewers] = useState([])
@@ -43,26 +43,30 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
                 <form id="new_interview" acceptCharset="UTF-8" onSubmit={handleSubmit}>
                     <div className="form-group">
                     <label htmlFor="title">Title</label>
-                        <input className="form-control" type="text" name="title" id="interview_title" onChange={handleTitleChange} required />
+                        <input className="form-control" type="text" name="title" id="interview_title" onChange={handleTitleChange}  defaultValue={initial.title || ''} required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="Desc">Desc</label>
-                        <input className="form-control" type="text" name="desc" id="interview_desc" onChange={handleDescChange} />
+                        <input className="form-control" type="text" name="desc" id="interview_desc" onChange={handleDescChange} defaultValue={initial.desc || ''}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="starttime">Start time</label>
-                        <input type="datetime-local" name="starttime" className="form-control" id="interview_start" onChange={handleStartChange} required />
+                        <input type="datetime-local" name="starttime" className="form-control" id="interview_start" onChange={handleStartChange} defaultValue={initial.starttime || ''} required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="endtime">End time</label>
-                        <input type="datetime-local" name="endtime" className="form-control" id="interview_end" onChange={handleEndChange} required />
+                        <input type="datetime-local" name="endtime" className="form-control" id="interview_end" onChange={handleEndChange} defaultValue={initial.endtime || ''} required />
                     </div>
                     <div className="form-group">
                         <label htmlFor="interviewer">Interviewer</label>
-                        <select id="interview_interviewer" name="interviewer_id" onChange={handleInterviewerChange}>
+                        <select id="interview_interviewer" name="interviewer_id" onChange={handleInterviewerChange} defaultValue={initial.interviewer_id || ''}>
+                           
                             {
                                 interviewers.map(interviewer => (
-                                    <option key={interviewer.id} value={interviewer.id}>{interviewer.email}</option>
+
+                                    
+                                    
+                                    <option key={interviewer.id} value={interviewer.id} >{interviewer.email}</option>
 
                                 ))
                             }
@@ -75,7 +79,7 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
 
                             { 
                                  interviewees.map(interviewee => (
-                                <div>
+                                <div key={interviewee.id}>
                                 <label htmlFor={interviewee.id}> {interviewee.email}</label>
                                 <input type="checkbox" key={interviewee.id} id={interviewee.id} name="interviewee_id"  value={interviewee.id} onChange={handleIntervieweeChange} />
                                 </div>

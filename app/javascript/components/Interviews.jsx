@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom'
 
 function Interviews() {
 
-
     const[interviews, setInterviews] = useState([])
 
     useEffect(()=>{
@@ -87,7 +86,10 @@ function Interviews() {
                   interviews.map(interview =>(
                       
                     <tr key={interview.id}>
-                      <td> <NavLink exact className="nav-link"  to={`/interviews/${interview.id}/edit`}>Edit </NavLink>   </td>
+                      <td> <NavLink exact className="nav-link"  to={{
+                                                                        pathname :`/interviews/${interview.id}/edit`,
+                                                                        state: { interview, }
+                                                                        }}>Edit </NavLink>   </td>
                       <td>{interview.title}</td>
                       <td>{Date(interview.start)}</td>
                       <td>{Date(interview.end)}</td>

@@ -1,0 +1,101 @@
+import axios from 'axios'
+import React, {useState, useEffect} from 'react'
+
+
+function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit}) {
+    
+    
+    const[interviewers, setInterviewers] = useState([])
+    const[interviewees, setInterviewees] = useState([])
+
+    useEffect(()=>{
+
+        axios
+        .get('http://localhost:3000/interviewers')
+        .then((res)=>{
+            
+            setInterviewers(res.data)
+            
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+        axios
+        .get('http://localhost:3000/interviewees')
+        .then((res)=>{
+            console.log(res.data)
+            setInterviewees(res.data.interviewees)
+            console.log(interviewees);
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+    },[])
+        
+        
+    
+    return (
+        <div> 
+     
+            <div className="container">
+                <form id="new_interview" acceptCharset="UTF-8" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                    <label htmlFor="title">Title</label>
+                        <input className="form-control" type="text" name="title" id="interview_title" onChange={handleTitleChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="Desc">Desc</label>
+                        <input className="form-control" type="text" name="desc" id="interview_desc" onChange={handleDescChange} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="starttime">Start time</label>
+                        <input type="datetime-local" name="starttime" className="form-control" id="interview_start" onChange={handleStartChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="endtime">End time</label>
+                        <input type="datetime-local" name="endtime" className="form-control" id="interview_end" onChange={handleEndChange} required />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="interviewer">Interviewer</label>
+                        <select id="interview_interviewer" name="interviewer_id" onChange={handleInterviewerChange}>
+                            {
+                                interviewers.map(interviewer => (
+                                    <option key={interviewer.id} value={interviewer.id}>{interviewer.email}</option>
+
+                                ))
+                            }
+                            
+                            
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="interviewee">Interviewee</label>
+
+                            { 
+                                 interviewees.map(interviewee => (
+                                <div>
+                                <label htmlFor={interviewee.id}> {interviewee.email}</label>
+                                <input type="checkbox" key={interviewee.id} id={interviewee.id} name="interviewee_id"  value={interviewee.id} onChange={handleIntervieweeChange} />
+                                </div>
+
+                            ))
+                            }
+                    
+
+                   
+                    </div>
+        
+                    <button type="submit" name="submit" className="btn btn-primary">Submit</button>
+
+
+                </form>
+            </div>
+            
+        </div>
+
+    )
+}
+
+export default InterviewForm

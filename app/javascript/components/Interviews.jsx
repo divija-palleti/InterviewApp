@@ -1,23 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {NavLink} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { fetchInterviews } from '../redux'
 
-function Interviews() {
-
-    const[interviews, setInterviews] = useState([])
+function Interviews({interviews, fetchInterviews}) {
 
     useEffect(()=>{
-
-      axios
-        .get('http://localhost:3000/interviews')
-        .then((res)=>{
-         
-          setInterviews(res.data.interviews)
-         
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      fetchInterviews()
     },[])
 
     const getParticipantList = (participants)=>{
@@ -82,6 +72,9 @@ function Interviews() {
               </tr>
             </thead>
             <tbody>
+              <tr>
+
+              </tr>
                 {
                   interviews.map(interview =>(
                       
@@ -110,4 +103,21 @@ function Interviews() {
     )
 }
 
-export default Interviews
+
+const mapStateToProps = state => {
+  return {
+    interviews: state.interview.interviews
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchInterviews: () => dispatch(fetchInterviews())
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Interviews)

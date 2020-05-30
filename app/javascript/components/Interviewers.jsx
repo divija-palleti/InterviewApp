@@ -11,17 +11,6 @@ function Interviewers({interviewers, fetchInterviewers}) {
 
   useEffect(()=>{
     fetchInterviewers()
-
-    // axios
-    //   .get('http://localhost:3000/interviewers')
-    //   .then((res)=>{
-        
-    //     setInterviewers(res.data)
-        
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
   },[])
 
   const handleDelete = (id,e) => {

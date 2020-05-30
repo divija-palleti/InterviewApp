@@ -2,27 +2,15 @@ import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import { fetchInterviewers } from '../redux'
+import { fetchInterviewees } from '../redux'
 
 
 
-function InterviewForm({ interviewers, fetchInterviewers, handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
+function InterviewForm({ interviewees, fetchInterviewees, interviewers, fetchInterviewers, handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
     
-    const[interviewees, setInterviewees] = useState([])
-
     useEffect(()=>{
         fetchInterviewers()
-
-
-        axios
-        .get('http://localhost:3000/interviewees')
-        .then((res)=>{
-            console.log(res.data)
-            setInterviewees(res.data.interviewees)
-            console.log(interviewees);
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        fetchInterviewees()
 
     },[])
         
@@ -95,13 +83,15 @@ function InterviewForm({ interviewers, fetchInterviewers, handleTitleChange, han
 }
 const mapStateToProps = state => {
     return {
-      interviewers: state.interviewer.interviewers
+      interviewers: state.interviewer.interviewers,
+      interviewees: state.interviewee.interviewees
     }
   }
   
   const mapDispatchToProps = dispatch => {
     return {
-      fetchInterviewers: () => dispatch(fetchInterviewers())
+      fetchInterviewers: () => dispatch(fetchInterviewers()),
+      fetchInterviewees: () => dispatch(fetchInterviewees())
     }
   }
 export default connect(

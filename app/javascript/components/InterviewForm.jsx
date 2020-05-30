@@ -1,25 +1,17 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
+import { connect } from 'react-redux'
+import { fetchInterviewers } from '../redux'
 
 
-function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
+
+function InterviewForm({ interviewers, fetchInterviewers, handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
     
-    
-    const[interviewers, setInterviewers] = useState([])
     const[interviewees, setInterviewees] = useState([])
 
     useEffect(()=>{
+        fetchInterviewers()
 
-        axios
-        .get('http://localhost:3000/interviewers')
-        .then((res)=>{
-            
-            setInterviewers(res.data)
-            
-        })
-        .catch(err => {
-            console.log(err)
-        })
 
         axios
         .get('http://localhost:3000/interviewees')
@@ -101,5 +93,18 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
 
     )
 }
-
-export default InterviewForm
+const mapStateToProps = state => {
+    return {
+      interviewers: state.interviewer.interviewers
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      fetchInterviewers: () => dispatch(fetchInterviewers())
+    }
+  }
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(InterviewForm)

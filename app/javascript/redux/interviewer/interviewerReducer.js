@@ -1,32 +1,32 @@
 import {
-    FETCH_INTERVIEWEES_REQUEST,
-    FETCH_INTERVIEWEES_SUCCESS,
-    FETCH_INTERVIEWEES_FAILURE
-  } from './intervieweeTypes'
+    FETCH_INTERVIEWERS_REQUEST,
+    FETCH_INTERVIEWERS_SUCCESS,
+    FETCH_INTERVIEWERS_FAILURE
+  } from './interviewerTypes'
   
   const initialState = {
     loading: false,
-    interviewees: [],
+    interviewers: [],
     error: ''
   }
   
   const reducer = (state = initialState, action) => {
     switch (action.type) {
-      case FETCH_INTERVIEWEES_REQUEST:
+      case FETCH_INTERVIEWERS_REQUEST:
         return {
           ...state,
           loading: true
         }
-      case FETCH_INTERVIEWEES_SUCCESS:
+      case FETCH_INTERVIEWERS_SUCCESS:
         return {
           loading: false,
-          interviewees: action.payload,
+          interviewers: action.payload,
           error: ''
         }
-      case FETCH_INTERVIEWEES_FAILURE:
+      case FETCH_INTERVIEWERS_FAILURE:
         return {
           loading: false,
-          interviewees: [],
+          interviewers: [],
           error: action.payload
         }
       default: return state

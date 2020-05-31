@@ -89,7 +89,7 @@ let NewInterviewee = {
 
       form.addEventListener('submit', event => {
           event.preventDefault();
-          console.log("p")
+        
           let formData = new FormData(new_interviewee)
           formData.append('name', interviewee_name)
           formData.append('email', interviewee_email)
@@ -101,31 +101,6 @@ let NewInterviewee = {
           for (var key of formData.entries()) {
             console.log(key[0] + ', ' + key[1]);
         }
-          // console.log()
-
-          // let response = await fetch('http://localhost:3000/interviewees', {
-          //   method: 'POST',
-          //   body: new FormData(formElem)
-          // });
-      
-          // let result = await response.json();
-      
-          // alert(result.message);
-
-          // let formData = new FormData()
-          // formData.append("resume", interviewee_resume)
-          // formData.append('name', interviewee_name)
-          // formData.append('email', interviewee_email)
-          // let interviewee = {}; 
-          // Object.keys(form.elements).forEach(key => {
-          //     let element = form.elements[key];
-          //     if (element.type !== "submit") {
-
-          //         interviewee[element.name] = element.value;
-          //     }
-              
-          //   });
-          // console.log(formData);
           postInterviewee(formData);
 
         })

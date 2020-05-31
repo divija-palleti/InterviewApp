@@ -17,7 +17,6 @@ let postInterview = async (interview) => {
         const response = await fetch(`http://localhost:3000/interviews`, options);
         const json = await response.json();
      
-        console.log(json)
         if(json.success){
          alert("Interview Created");
            Redirect('/')
@@ -25,8 +24,6 @@ let postInterview = async (interview) => {
         else{
             var x;
             var obj = json.errors;
-            console.log(obj)
-
          alert("Interview not Created");
          for (x in obj) {
             alert(`${x} - ${obj[x]}`);
@@ -40,15 +37,13 @@ let postInterview = async (interview) => {
 
 }
 
-
-
 let NewInterviews = {
 
     render : async () => {
-        console.log("p")
+       
         let interviewers = await getInterviewersList()
         let interviewees = await getIntervieweesList()
-        console.log("p1")
+     
         let view =  /*html*/`
         
         <h1> New Interview</h1>
@@ -137,7 +132,7 @@ let NewInterviews = {
                 }
                 interview["interviewee_ids"] = interviewee_ids
               });
-            console.log(interview)
+          
             let x =postInterview(interview);
 
         

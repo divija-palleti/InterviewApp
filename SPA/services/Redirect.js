@@ -4,7 +4,6 @@ import routes from "./Router.js";
 import Error404 from "../views/pages/Error404.js";
 
 
-
 let Redirect = async (path) => {
     
     let parsedURL = path

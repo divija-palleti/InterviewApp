@@ -7,11 +7,6 @@ import New_interviewer from '../views/pages/NewInterviewer.js'
 import New_interviewee from '../views/pages/NewInterviewee.js'
 import Edit_interview from '../views/pages/EditInterview.js'
 
-
-
-
-
-
 const routes = {
     '/'             : Interviews
     , '/interviewers'   : Interviewers

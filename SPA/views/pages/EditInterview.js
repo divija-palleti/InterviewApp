@@ -16,8 +16,7 @@ let patchInterview = async (interview) => {
       try {
         const response = await fetch(`http://localhost:3000/interviews/`+interview.id, options);
         const json = await response.json();
-     
-        console.log(json)
+  
         if(json.success){
          alert("Interview Updated");
            Redirect('/')
@@ -135,13 +134,8 @@ let getIntervieweesList = async () => {
         }
     };
     try {
-        console.log("enter1")
-    
         const response = await fetch(`http://localhost:3000/interviewees/`, options)
-        console.log("enter2")
         const json = await response.json();
-        
-        console.log(json)
         return json
     } catch (err) {
         console.log('Error getting documents', err)

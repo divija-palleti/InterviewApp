@@ -1,6 +1,5 @@
 
 let getInterviewsList = async () => {
-    console.log("fails2")
     const options = {
        method: 'GET',
        headers: {
@@ -9,13 +8,8 @@ let getInterviewsList = async () => {
        }
    };
    try {
-    
        const response = await fetch(`http://localhost:3000/interviews/`, options)
-      
        const json = await response.json();
-       
-       console.log(json)
-       
        return json
    } catch (err) {
        console.log('Error getting documents', err)

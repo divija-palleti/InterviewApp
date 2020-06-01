@@ -8,6 +8,7 @@ function Interviews({interviews, fetchInterviews}) {
 
     useEffect(()=>{
       fetchInterviews()
+      
     },[])
 
     const getParticipantList = (participants)=>{

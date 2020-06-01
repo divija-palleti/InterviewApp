@@ -2,8 +2,40 @@ import axios from 'axios'
 import {
   FETCH_INTERVIEWS_REQUEST,
   FETCH_INTERVIEWS_SUCCESS,
-  FETCH_INTERVIEWS_FAILURE
+  FETCH_INTERVIEWS_FAILURE,
+  POST_INTERVIEW_FAILURE,
+  POST_INTERVIEW_REQUEST,
+  POST_INTERVIEW_SUCCESS
 } from './interviewTypes'
+
+export const postInterview = (interview) => {
+  return (dispatch) => {
+    dispatch(postInterviewRequest())
+    axios
+      .post('http://localhost:3000/interviews',{interview})
+      .then(response => {
+        if(response.data.success)
+                {
+                    alert("Interview Created");
+                    console.log(res)
+                    dispatch(postInterviewSuccess(interview))
+                   return <Redirect to="/" /> 
+                }
+        else{
+                    var obj = json.errors;
+                    alert("Interview not Created");
+                    for (x in obj) {
+                        alert(`${x} - ${obj[x]}`);
+            }
+                    
+                }
+      })
+      .catch(error => {
+        // error.message is the error message
+        dispatch(postInterviewFailure(error.message))
+      })
+  }
+}
 
 
 export const fetchInterviews = () => {
@@ -23,6 +55,27 @@ export const fetchInterviews = () => {
       })
   }
 }
+
+export const postInterviewRequest = () => {
+  return {
+    type: POST_INTERVIEW_REQUEST
+  }
+}
+
+export const postInterviewSuccess = interview => {
+  return {
+    type: POST_INTERVIEW_SUCCESS,
+    payload: interview
+  }
+}
+
+export const postInterviewFailure = error => {
+  return {
+    type: POST_INTERVIEW_FAILURE,
+    payload: error
+  }
+}
+
 
 export const fetchInterviewsRequest = () => {
   return {

@@ -3,8 +3,9 @@ import {NavLink} from 'react-router-dom'
 import InterviewForm from './InterviewForm'
 import React, {useState, useEffect} from 'react'
 import  { Redirect } from 'react-router-dom'
+import { postInterview } from '../redux'
 
-function NewInterview() {
+function NewInterview({interviews, postInterviews}) {
 
     let [title, setTitle] = useState('');
     let [desc, setDesc] = useState('');
@@ -40,40 +41,49 @@ function NewInterview() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios
-        .post('http://localhost:3000/interviews', {
-        interview: {
-            title: title,
-            desc: desc,
-            endtime: endtime.endtime,
-            starttime: starttime.starttime,
-            interviewer_id: interviewer_id,
-            interviewee_ids: interviewee_id
+        postInterview({ interview: {
+                title: title,
+                desc: desc,
+                endtime: endtime.endtime,
+                starttime: starttime.starttime,
+                interviewer_id: interviewer_id,
+                interviewee_ids: interviewee_id
+              
+             }})
+        // axios
+        // .post('http://localhost:3000/interviews', {
+        // interview: {
+        //     title: title,
+        //     desc: desc,
+        //     endtime: endtime.endtime,
+        //     starttime: starttime.starttime,
+        //     interviewer_id: interviewer_id,
+        //     interviewee_ids: interviewee_id
           
-        },
-        })
-        .then(response => {
+        // },
+        // })
+        // .then(response => {
                 
-                if(response.data.success)
-                {
-                    alert("Interview Created");
-                   return <Redirect to="/" /> 
-                }
-                else{
-                    var obj = json.errors;
-                    alert("Interview not Created");
-                    for (x in obj) {
-                        alert(`${x} - ${obj[x]}`);
-                    }
+        //         if(response.data.success)
+        //         {
+        //             alert("Interview Created");
+        //            return <Redirect to="/" /> 
+        //         }
+        //         else{
+        //             var obj = json.errors;
+        //             alert("Interview not Created");
+        //             for (x in obj) {
+        //                 alert(`${x} - ${obj[x]}`);
+        //             }
                     
-                }
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        //         }
+        // })
+        // .catch(error => {
+        //     console.log(error)
+        // })
    
        
-        e.target.reset()
+        // e.target.reset()
       }
         
     return (
@@ -101,4 +111,20 @@ function NewInterview() {
     )
 }
 
-export default NewInterview
+const mapStateToProps = state => {
+    return {
+      interviews: state.interview.interviews
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      postInterviews: () => dispatch(postInterviews())
+    }
+  }
+  
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(NewInterview)

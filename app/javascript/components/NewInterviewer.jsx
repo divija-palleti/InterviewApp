@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import  { Redirect } from 'react-router-dom'
 import {NavLink} from 'react-router-dom'
-import axios from 'axios'
+import { postInterviewer } from '../redux-1'
+import { connect } from 'react-redux'
 
 
-function NewInterviewer() {
+function NewInterviewer({postInterviewer}) {
 
 const[name, setName] = useState('') 
 const[email, setEmail] = useState('') 
@@ -14,35 +15,41 @@ const handleEmailChange = e => setEmail(e.target.value);
 const handleDescChange = e => setDesc(e.target.value);
 const handleSubmit = event => {
   event.preventDefault();
-  axios
-  .post('http://localhost:3000/interviewers', {
-  interviewer: {
-      name: name,
-      desc: desc,
-      email:email
+  postInterviewer({ interviewer: {
+    name: name,
+    desc: desc,
+    email:email
+  
+ }})
+//   axios
+//   .post('http://localhost:3000/interviewers', {
+//   interviewer: {
+//       name: name,
+//       desc: desc,
+//       email:email
     
-  },
-  })
-  .then(response => {
+//   },
+//   })
+//   .then(response => {
           
-          if(response.data.success)
-          {
-              alert("Interviewer Created");
-              event.target.reset()
-             return <Redirect to="/" /> 
-          }
-          else{
-              var obj = json.errors;
-              alert("Interviewer not Created");
-              for (x in obj) {
-                  alert(`${x} - ${obj[x]}`);
-              }
+        //   if(response.data.success)
+        //   {
+        //       alert("Interviewer Created");
+        //       event.target.reset()
+        //      return <Redirect to="/" /> 
+        //   }
+        //   else{
+        //       var obj = json.errors;
+        //       alert("Interviewer not Created");
+        //       for (x in obj) {
+        //           alert(`${x} - ${obj[x]}`);
+        //       }
               
-          }
-  })
-  .catch(error => {
-      console.log(error)
-  })
+        //   }
+//   })
+//   .catch(error => {
+//       console.log(error)
+//   })
 
  
   // event.target.reset()
@@ -84,4 +91,15 @@ const handleSubmit = event => {
     )
 }
 
-export default NewInterviewer
+
+const mapDispatchToProps = dispatch => {
+    return {
+     
+      postInterviewer: (interviewer) => dispatch(postInterviewer(interviewer.interviewer))
+    }
+  }
+  
+  export default connect(  
+    undefined,
+    mapDispatchToProps
+  )(NewInterviewer)

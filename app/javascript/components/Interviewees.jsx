@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {NavLink, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchInterviewees } from '../redux'
+import { fetchInterviewees } from '../redux-1'
 
 function Interviewees({interviewees, fetchInterviewees}) {
 

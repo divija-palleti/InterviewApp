@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import  { Redirect } from 'react-router-dom'
-import axios from 'axios'
 import {NavLink} from 'react-router-dom'
-function NewInterviewee() {
+import { postInterviewee } from '../redux-1'
+import { connect } from 'react-redux'
+
+function NewInterviewee({postInterviewee}) {
 
   const[name, setName] = useState('') 
   const[email, setEmail] = useState('') 
@@ -18,37 +20,32 @@ function NewInterviewee() {
     data.append('resume', resume)
     data.append('name', name)
     data.append('email', email)
-    console.log(data)
-    axios
-            // .post('http://localhost:3000/interviewees',{ 
-            //   interviewee:{
-            //   name:name,
-            //   email:email,
-            //   resume:resume
-            // }} )
-            .post('http://localhost:3000/interviewees',data)
-            .then(response => {
+    postInterviewee(data)
+    // axios
+           
+    //         .post('http://localhost:3000/interviewees',data)
+    //         .then(response => {
             
-            if(response.data.success)
-            {
-                alert("Interviewee Created");
-               return <Redirect to="/" /> 
-            }
-            else{
-                var obj = json.errors;
-                alert("Interviewee not Created");
-                for (x in obj) {
-                    alert(`${x} - ${obj[x]}`);
-                }
+    //         if(response.data.success)
+    //         {
+    //             alert("Interviewee Created");
+    //            return <Redirect to="/" /> 
+    //         }
+    //         else{
+    //             var obj = json.errors;
+    //             alert("Interviewee not Created");
+    //             for (x in obj) {
+    //                 alert(`${x} - ${obj[x]}`);
+    //             }
                 
-            }
-    })
-    .catch(error => {
-        console.log(error)
-    })
+    //         }
+    // })
+    // .catch(error => {
+    //     console.log(error)
+    // })
 
    console.log(name,email,resume)
-    // e.target.reset()
+
   }
   
     return (
@@ -84,4 +81,15 @@ function NewInterviewee() {
     )
 }
 
-export default NewInterviewee
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    postInterviewee: (data) => dispatch(postInterviewee(data))
+  }
+}
+
+export default connect(  
+  undefined,
+  mapDispatchToProps
+)(NewInterviewee)

@@ -1,11 +1,10 @@
-import axios from 'axios'
 import {NavLink} from 'react-router-dom'
 import InterviewForm from './InterviewForm'
 import React, {useState, useEffect} from 'react'
-import  { Redirect } from 'react-router-dom'
-import { postInterview } from '../redux'
+import { postInterview } from '../redux-1'
+import { connect } from 'react-redux'
 
-function NewInterview({interviews, postInterviews}) {
+function NewInterview({interviews, postInterview}) {
 
     let [title, setTitle] = useState('');
     let [desc, setDesc] = useState('');
@@ -50,40 +49,7 @@ function NewInterview({interviews, postInterviews}) {
                 interviewee_ids: interviewee_id
               
              }})
-        // axios
-        // .post('http://localhost:3000/interviews', {
-        // interview: {
-        //     title: title,
-        //     desc: desc,
-        //     endtime: endtime.endtime,
-        //     starttime: starttime.starttime,
-        //     interviewer_id: interviewer_id,
-        //     interviewee_ids: interviewee_id
-          
-        // },
-        // })
-        // .then(response => {
-                
-        //         if(response.data.success)
-        //         {
-        //             alert("Interview Created");
-        //            return <Redirect to="/" /> 
-        //         }
-        //         else{
-        //             var obj = json.errors;
-        //             alert("Interview not Created");
-        //             for (x in obj) {
-        //                 alert(`${x} - ${obj[x]}`);
-        //             }
-                    
-        //         }
-        // })
-        // .catch(error => {
-        //     console.log(error)
-        // })
-   
        
-        // e.target.reset()
       }
         
     return (
@@ -119,7 +85,7 @@ const mapStateToProps = state => {
   
   const mapDispatchToProps = dispatch => {
     return {
-      postInterviews: () => dispatch(postInterviews())
+      postInterview: (interview) => dispatch(postInterview(interview.interview))
     }
   }
   

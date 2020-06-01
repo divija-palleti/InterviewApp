@@ -1,10 +1,10 @@
 import {
-    FETCH_INTERVIEWS_REQUEST,
-    FETCH_INTERVIEWS_SUCCESS,
-    FETCH_INTERVIEWS_FAILURE,
-    POST_INTERVIEW_FAILURE,
-    POST_INTERVIEW_REQUEST,
-    POST_INTERVIEW_SUCCESS
+  FETCH_INTERVIEWS_REQUEST,
+  FETCH_INTERVIEWS_SUCCESS,
+  FETCH_INTERVIEWS_FAILURE,
+  POST_INTERVIEW_FAILURE,
+  POST_INTERVIEW_REQUEST,
+  POST_INTERVIEW_SUCCESS
   } from './interviewTypes'
   
   const initialState = {
@@ -14,7 +14,7 @@ import {
   }
   
   const reducer = (state = initialState, action) => {
-    const x = action.payload
+  
     switch (action.type) {
       case FETCH_INTERVIEWS_REQUEST:
         return {
@@ -33,20 +33,14 @@ import {
           interviews: action.payload,
           error: ''
         }
-        case POST_INTERVIEW_SUCCESS:
-          y = {...interviews,x}
-        return {
-          loading: false,
-          interviews: y,
-          error: ''
-        }
+        
       case FETCH_INTERVIEWS_FAILURE:
         return {
           loading: false,
           interviews: [],
           error: action.payload
         }
-        case POST_INTERVIEWS_FAILURE:
+        case POST_INTERVIEW_FAILURE:
         return {
           ...state,
           loading: false,

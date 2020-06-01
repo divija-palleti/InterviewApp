@@ -11,14 +11,15 @@ import {
 export const postInterview = (interview) => {
   return (dispatch) => {
     dispatch(postInterviewRequest())
+   
     axios
       .post('http://localhost:3000/interviews',{interview})
       .then(response => {
+     
         if(response.data.success)
                 {
-                    alert("Interview Created");
-                    console.log(res)
-                    dispatch(postInterviewSuccess(interview))
+                   alert("Interview Created");
+                   dispatch(fetchInterviews());
                    return <Redirect to="/" /> 
                 }
         else{
@@ -26,7 +27,7 @@ export const postInterview = (interview) => {
                     alert("Interview not Created");
                     for (x in obj) {
                         alert(`${x} - ${obj[x]}`);
-            }
+                     }
                     
                 }
       })
@@ -46,7 +47,7 @@ export const fetchInterviews = () => {
       .then(response => {
         // response.data is the interviews
         const interviews = response.data.interviews
-        console.log(interviews)
+      
         dispatch(fetchInterviewsSuccess(interviews))
       })
       .catch(error => {
@@ -63,6 +64,7 @@ export const postInterviewRequest = () => {
 }
 
 export const postInterviewSuccess = interview => {
+
   return {
     type: POST_INTERVIEW_SUCCESS,
     payload: interview

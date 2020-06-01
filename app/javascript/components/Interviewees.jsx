@@ -2,20 +2,13 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {NavLink, Link} from 'react-router-dom'
-function Interviewees() {
+import { connect } from 'react-redux'
+import { fetchInterviewees } from '../redux-1'
 
-  const[interviewees, setInterviewees] = useState([])
+function Interviewees({interviewees, fetchInterviewees}) {
 
   useEffect(()=>{
-
-    axios
-      .get('http://localhost:3000/interviewees')
-      .then((res)=>{
-        setInterviewees(res.data.interviewees)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    fetchInterviewees()
   },[])
 
   const handleDelete = (id,e) => {
@@ -95,5 +88,19 @@ function Interviewees() {
         </div>
     )
 }
+const mapStateToProps = state => {
+  return {
+    interviewees: state.interviewee.interviewees
+  }
+}
 
-export default Interviewees
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchInterviewees: () => dispatch(fetchInterviewees())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Interviewees)

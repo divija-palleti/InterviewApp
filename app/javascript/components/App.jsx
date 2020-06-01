@@ -1,4 +1,6 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from '../redux-1/store'
 import {Route, NavLink, Switch} from 'react-router-dom'
 import Interviews from './Interviews';
 import Interviewers from './Interviewers';
@@ -10,6 +12,7 @@ import EditInterview from './EditInterview';
 
 const App = (props) => {
   return (
+    <Provider store={store}>
     <div className="App">
         
           <div className="container">
@@ -18,6 +21,7 @@ const App = (props) => {
           </div>
        
       </div>
+      </Provider>
   );
 }
 

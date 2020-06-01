@@ -1,10 +1,10 @@
-import axios from 'axios'
 import {NavLink} from 'react-router-dom'
 import InterviewForm from './InterviewForm'
 import React, {useState, useEffect} from 'react'
-import  { Redirect } from 'react-router-dom'
+import { postInterview } from '../redux-1'
+import { connect } from 'react-redux'
 
-function NewInterview() {
+function NewInterview({interviews, postInterview}) {
 
     let [title, setTitle] = useState('');
     let [desc, setDesc] = useState('');
@@ -40,40 +40,16 @@ function NewInterview() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        axios
-        .post('http://localhost:3000/interviews', {
-        interview: {
-            title: title,
-            desc: desc,
-            endtime: endtime.endtime,
-            starttime: starttime.starttime,
-            interviewer_id: interviewer_id,
-            interviewee_ids: interviewee_id
-          
-        },
-        })
-        .then(response => {
-                
-                if(response.data.success)
-                {
-                    alert("Interview Created");
-                   return <Redirect to="/" /> 
-                }
-                else{
-                    var obj = json.errors;
-                    alert("Interview not Created");
-                    for (x in obj) {
-                        alert(`${x} - ${obj[x]}`);
-                    }
-                    
-                }
-        })
-        .catch(error => {
-            console.log(error)
-        })
-   
+        postInterview({ interview: {
+                title: title,
+                desc: desc,
+                endtime: endtime.endtime,
+                starttime: starttime.starttime,
+                interviewer_id: interviewer_id,
+                interviewee_ids: interviewee_id
+              
+             }})
        
-        e.target.reset()
       }
         
     return (
@@ -101,4 +77,20 @@ function NewInterview() {
     )
 }
 
-export default NewInterview
+const mapStateToProps = state => {
+    return {
+      interviews: state.interview.interviews
+    }
+  }
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+      postInterview: (interview) => dispatch(postInterview(interview.interview))
+    }
+  }
+  
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(NewInterview)

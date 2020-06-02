@@ -28,11 +28,11 @@ class IntervieweesController < ApplicationController
   
 
     def create
-        @interviewee = Interviewee.new(interviewer_params)
+        @interviewee = Interviewee.new(interviewee_params)
 
         # respond_to do |format|
           if @interviewee.save()
-            render json: {
+            render json: { 
               :success => true,
             }
             # format.html { redirect_to interviewees_path, notice: 'Created ' }
@@ -59,7 +59,7 @@ class IntervieweesController < ApplicationController
 
     private
 
-    def interviewer_params
+    def interviewee_params
       params.require(:interviewee).permit(:name, :email, :resume)
     end
 end

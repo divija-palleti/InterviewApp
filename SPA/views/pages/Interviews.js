@@ -85,12 +85,9 @@ let Interviews = {
                 <td>${ Date(interview.start)}</td>
                 <td>${Date(interview.end)}</td>
                 <td>${interview.interviewer_email}</td>
-                <td>${getParticipantList(interview.participants)}
-                  </td>
-              
+                <td>${getParticipantList(interview.participants)}</td>
                 <td> <a class="navbar-item" onclick="deleteInterview(${interview.id})">  Delete </a></td>
               </tr>
-                
                 `
                 )
             }

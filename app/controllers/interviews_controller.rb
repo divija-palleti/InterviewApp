@@ -9,9 +9,13 @@ class InterviewsController < ApplicationController
       interviews = []
       @interviews.each do |interview|
         participants = []
+        participants_id=[]
         interview.interviewees.each do |i|
           participants.append(
             i.email
+          )
+          participants_id.append(
+            i.id
           )
         end
         interviews.append({
@@ -20,8 +24,8 @@ class InterviewsController < ApplicationController
           :start => interview.starttime,
           :end => interview.endtime,
           :interviewer_email => interview.interviewer_email,
-
-         
+          :interviewer_id => interview.interviewer_id,
+          :participants_id => participants_id,
           :participants => participants,
         })
       end

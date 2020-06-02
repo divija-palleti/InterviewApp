@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
-import { fetchInterviewers } from '../redux-1'
-import { fetchInterviewees } from '../redux-1'
+import { fetchInterviewers } from '../xyz'
+import { fetchInterviewees } from '../xyz'
 
 
 

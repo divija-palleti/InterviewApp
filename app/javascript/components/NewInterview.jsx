@@ -1,7 +1,7 @@
 import {NavLink} from 'react-router-dom'
 import InterviewForm from './InterviewForm'
 import React, {useState, useEffect} from 'react'
-import { postInterview } from '../redux-1'
+import { postInterview } from '../xyz'
 import { connect } from 'react-redux'
 
 function NewInterview({interviews, postInterview}) {

@@ -16,21 +16,17 @@ export const postInterviewee = (interviewee) => {
     axios
       .post('http://localhost:3000/interviewees',{interviewee})
       .then(response => {
-     
-        if(response.data.success)
-                {
-                   alert("Interviewee Created");
-                   dispatch(fetchInterviewees());
-                   return <Redirect to="/" /> 
-                }
+        const{data: {success: success}}=response
+        if(success){
+            alert("Interviewee Created");
+            dispatch(fetchInterviewees());
+            return <Redirect to="/" /> 
+            }
         else{
-                    var obj = json.errors;
-                    alert("Interviewee not Created");
-                    for (x in obj) {
-                        alert(`${x} - ${obj[x]}`);
-                     }
-                    
-                }
+          const{data: {errors: errObj}}=response
+          alert("Interviewee not Created");
+          Object.entries(errObj).forEach(([key, value]) => alert(`${key} ${value}`))
+            }
       })
       .catch(error => {
         // error.message is the error message
@@ -47,8 +43,7 @@ export const fetchInterviewees = () => {
       .get('http://localhost:3000/interviewees')
       .then(response => {
         // response.data is the interviewees
-        const interviewees = response.data.interviewees
-        console.log(interviewees)
+        const{data: {interviewees: interviewees}} = response
         dispatch(fetchIntervieweesSuccess(interviewees))
       })
       .catch(error => {

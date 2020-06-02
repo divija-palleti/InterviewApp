@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import  { Redirect } from 'react-router-dom'
 import {NavLink} from 'react-router-dom'
-import { postInterviewee } from '../redux-1'
+import { postInterviewee } from '../xyz'
 import { connect } from 'react-redux'
 
 function NewInterviewee({postInterviewee}) {

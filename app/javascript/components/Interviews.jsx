@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {NavLink} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchInterviews } from '../redux-1'
+import { fetchInterviews } from '../xyz'
 
 function Interviews({interviews, fetchInterviews}) {
 

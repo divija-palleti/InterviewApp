@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '../redux-1/store'
+import store from '../xyz/store'
 import {Route, NavLink, Switch} from 'react-router-dom'
 import Interviews from './Interviews';
 import Interviewers from './Interviewers';

@@ -15,21 +15,17 @@ export const postInterview = (interview) => {
     axios
       .post('http://localhost:3000/interviews',{interview})
       .then(response => {
-     
-        if(response.data.success)
-                {
-                   alert("Interview Created");
-                   dispatch(fetchInterviews());
-                   return <Redirect to="/" /> 
-                }
+        const{data: {success: success}}=response
+        if(success){
+            alert("Interview Created");
+            dispatch(fetchInterviews());
+            return <Redirect to="/" /> 
+          }
         else{
-                    var obj = json.errors;
-                    alert("Interview not Created");
-                    for (x in obj) {
-                        alert(`${x} - ${obj[x]}`);
-                     }
-                    
-                }
+            const{data: {errors: errObj}}=response
+            alert("Interview not Created");
+            Object.entries(errObj).forEach(([key, value]) => alert(`${key} ${value}`))
+          }
       })
       .catch(error => {
         // error.message is the error message
@@ -38,7 +34,6 @@ export const postInterview = (interview) => {
   }
 }
 
-
 export const fetchInterviews = () => {
   return (dispatch) => {
     dispatch(fetchInterviewsRequest())
@@ -46,8 +41,7 @@ export const fetchInterviews = () => {
       .get('http://localhost:3000/interviews')
       .then(response => {
         // response.data is the interviews
-        const interviews = response.data.interviews
-      
+        const{data: {interviews: interviews}} = response
         dispatch(fetchInterviewsSuccess(interviews))
       })
       .catch(error => {

@@ -1,9 +1,8 @@
 import axios from 'axios'
 import React, {useState, useEffect} from 'react'
 
-
-function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
-    
+function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange, handleEndChange, 
+        handleInterviewerChange, handleIntervieweeChange, handleSubmit , initial={}}) {
     
     const[interviewers, setInterviewers] = useState([])
     const[interviewees, setInterviewees] = useState([])
@@ -34,8 +33,6 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
 
     },[])
         
-        
-    
     return (
         <div> 
      
@@ -60,23 +57,15 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
                     <div className="form-group">
                         <label htmlFor="interviewer">Interviewer</label>
                         <select id="interview_interviewer" name="interviewer_id" onChange={handleInterviewerChange} defaultValue={initial.interviewer_id || ''}>
-                           
                             {
                                 interviewers.map(interviewer => (
-
-                                    
-                                    
                                     <option key={interviewer.id} value={interviewer.id} >{interviewer.email}</option>
-
                                 ))
-                            }
-                            
-                            
+                            }    
                         </select>
                     </div>
                     <div className="form-group">
                         <label htmlFor="interviewee">Interviewee</label>
-
                             { 
                                  interviewees.map(interviewee => (
                                 <div key={interviewee.id}>
@@ -86,14 +75,8 @@ function InterviewForm({ handleTitleChange, handleDescChange, handleStartChange,
 
                             ))
                             }
-                    
-
-                   
                     </div>
-        
                     <button type="submit" name="submit" className="btn btn-primary">Submit</button>
-
-
                 </form>
             </div>
             

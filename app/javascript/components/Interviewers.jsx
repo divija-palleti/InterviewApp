@@ -24,8 +24,6 @@ function Interviewers() {
      
     const confirmation = confirm("Are you sure?");
     if (confirmation) {
-      console.log(id)
-      console.log("p")
       let path = `http://localhost:3000/interviewers/${id}`
       console.log(path)
       axios

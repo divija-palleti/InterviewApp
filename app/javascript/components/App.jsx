@@ -11,35 +11,34 @@ import EditInterview from './EditInterview';
 const App = (props) => {
   return (
     <div className="App">
-        
           <div className="container">
             <Navigation />
             <Main />
           </div>
-       
-      </div>
+    </div>
   );
 }
 
 const Navigation = () => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <div className="navbar-brand">
-
-       <div className="navbar-item"><NavLink exact className="nav-link"  to="/">Interview App </NavLink></div>
-                        
+       <div className="navbar-item"><NavLink exact  to="/">Interview App </NavLink></div>              
     </div>
                
     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div className="navbar-nav">
-        <div className="nav-item nav-link active"><NavLink exact className="nav-link" activeClassName="active" to="/Interviews/new"> New Interview </NavLink></div>
-        <div className="nav-item nav-link active" ><NavLink exact className="nav-link" activeClassName="active" to="/Interviewers">Interviewers </NavLink></div>
-        <div className="nav-item nav-link active"><NavLink exact className="nav-link" activeClassName="active" to="/Interviewees"> Interviewees </NavLink></div>
+        <div className="nav-item nav-link">
+        <NavLink exact  to="/Interviews/new"> New Interview </NavLink>
         </div>
+        <div className="nav-item nav-link">
+        <NavLink exact  to="/Interviewers">Interviewers </NavLink>
+        </div>
+        <div className="nav-item nav-link">
+        <NavLink exact to="/Interviewees"> Interviewees </NavLink>
+        </div>
+      </div>
     </div>
   </nav>
-
-
- 
 );
 
 const Main = () => (

@@ -22,11 +22,7 @@ function Interviews() {
 
     const getParticipantList = (participants)=>{
       let p='';
-        for(var i=0;i<participants.length;i++)
-        {
-          p+=`${participants[i]}\n`
-         
-        }
+      participants.forEach(participant_email => p+=`${participant_email}\n`)
       return p
     }
 
@@ -84,17 +80,15 @@ function Interviews() {
             <tbody>
                 {
                   interviews.map(interview =>(
-                      
                     <tr key={interview.id}>
                       <td> <NavLink exact className="nav-link"  to={{
                                                                         pathname :`/interviews/${interview.id}/edit`,
                                                                         state: { interview, }
-                                                                        }}>Edit </NavLink>   </td>
+                                                                    }}>Edit </NavLink>   </td>
                       <td>{interview.title}</td>
                       <td>{Date(interview.start)}</td>
                       <td>{Date(interview.end)}</td>
                       <td>{interview.interviewer_email}</td>
-
                       <td>{getParticipantList(interview.participants)}</td>
                       <td > <button onClick={(e) => handleDelete(interview.id, e)}>Delete</button>   </td>
                     </tr>
